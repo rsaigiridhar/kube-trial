@@ -12,7 +12,7 @@ spec:
   type: LoadBalancer
 
 ---
-
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginxp
