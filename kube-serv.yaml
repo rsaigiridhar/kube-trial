@@ -19,7 +19,7 @@ metadata:
     test: later
 spec:
   containers:
-    image: nginx:alpine
+  - image: nginx:alpine
     name: nginxc
     ports:
     - containerPort: 80
