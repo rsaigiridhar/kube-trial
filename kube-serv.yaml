@@ -11,6 +11,8 @@ spec:
     targetPort: 80
   type: LoadBalancer
 
+---
+
 kind: Pod
 metadata:
   name: nginxp
