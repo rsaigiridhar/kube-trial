@@ -18,7 +18,7 @@ metadata:
     app: nginx
     test: later
 spec:
-  container:
+  containers:
     image: nginx:alpine
     name: nginxc
     ports:
