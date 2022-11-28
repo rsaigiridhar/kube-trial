@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxs
+spec:
+  selector:
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+
+kind: Pod
+metadata:
+  name: nginxp
+  labels:
+    app: nginx
+    test: later
+spec:
+  container:
+    image: nginx:alpine
+    name: nginxc
+    ports:
+    - containerPort: 80
