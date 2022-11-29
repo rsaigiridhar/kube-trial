@@ -68,7 +68,7 @@ spec:
       volumes:
       - name: nginx-config-volumes
         configMap:
-          name: nginx-configMap
+          name: nginx-configmap
       containers:
       - name: nginxc
         image: nginx:latest
@@ -83,7 +83,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-configMap
+  name: nginx-configmap
 data:
   default.conf: | # in YAML syntax, | indicates a multi-line string
     server {
