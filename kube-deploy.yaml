@@ -56,10 +56,6 @@ metadata:
   labels:
     app: nginxdl
 spec:
-  volumes:
-  - name: nginx-config-volumes
-    configMap:
-      name: nginx-configMap
   replicas: 1
   selector:
     matchLabels:
@@ -69,6 +65,10 @@ spec:
       labels:
         app: nginxdl
     spec:
+      volumes:
+      - name: nginx-config-volumes
+        configMap:
+          name: nginx-configMap
       containers:
       - name: nginxc
         image: nginx:latest
