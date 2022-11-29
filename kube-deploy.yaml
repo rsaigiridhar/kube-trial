@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: flaskppd
   labels:
-    app: flaskappd
+    app: flaskappdl
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: flaskappl
+      app: flaskappdl
   template:
     metadata:
       labels:
-        app: flaskappl
+        app: flaskappdl
     spec:
       containers:
       - name: flaskappc
@@ -28,7 +28,7 @@ metadata:
   name: flaskapps
 spec:
   selector:
-    app: flaskappd
+    app: flaskappdl
   ports:
   - protocol: TCP
     port: 8181
@@ -42,11 +42,10 @@ metadata:
   name: nginxs
 spec:
   selector:
-    app: nginxd
+    app: nginxdl
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8181
   type: LoadBalancer
 
 ---
@@ -55,18 +54,40 @@ kind: Deployment
 metadata:
   name: nginxd
   labels:
-    app: nginxd
+    app: nginxdl
 spec:
+  volumes:
+  - name: nginx-config-volumes
+    configMap:
+      name: nginx-configMap
   replicas: 1
   selector:
     matchLabels:
-      app: nginxc
+      app: nginxdl
   template:
     metadata:
       labels:
-        app: nginxc
+        app: nginxdl
     spec:
       containers:
       - name: nginxc
         image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config-volumes
+          mountPath: /etc/nginx/conf.d
 
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configMap
+data:
+  default.conf: | # in YAML syntax, | indicates a multi-line string
+    server {
+      listen 80;
+        location / {
+          proxy_pass http://flaskapps:8181;
+        }
