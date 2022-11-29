@@ -8,14 +8,64 @@ spec:
   replicas: 5
   selector:
     matchLabels:
-      app:flaskappl
+      app: flaskappl
   template:
     metadata:
       labels:
-        app:flaskappl
+        app: flaskappl
     spec:
       containers:
       - name: flaskappc
         image: saigiridharr/myflaskapp
         ports:
           containerPort: 5050
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: flaskapps
+spec:
+  selector:
+    app: flaskappd
+  ports:
+  - protocol: TCP
+    port: 8181
+    targetPort: 5050
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxs
+spec:
+  selector:
+    app: nginxd
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8181
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxd
+  labels:
+    app: nginxd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginxc
+  template:
+    metadata:
+      labels:
+        app: nginxc
+    spec:
+      containers:
+      - name: nginxc
+        image: nginx:latest
