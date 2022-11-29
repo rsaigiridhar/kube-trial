@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flaskapps
+spec:
+  selector:
+    test: later
+  ports:
+  - protocol: TCP
+    port: 5050
+    targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flaskappp
+  labels:
+    test: later
+spec:
+  containers:
+  - image: saigiridharr/myflaskapp
+    name: flaskappc
+    ports:
+    - containerPort: 5050
