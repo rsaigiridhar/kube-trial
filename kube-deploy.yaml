@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskppd
+  labels:
+    app: flaskappd
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app:flaskappl
+  template:
+    metadata:
+      labels:
+        app:flaskappl
+    spec:
+      containers:
+      - name: flaskappc
+        image: saigiridharr/myflaskapp
+        ports:
+          containerPort: 5050
