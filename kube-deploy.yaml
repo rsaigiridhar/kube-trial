@@ -91,3 +91,4 @@ data:
         location / {
           proxy_pass http://flaskapps:8181;
         }
+      }
