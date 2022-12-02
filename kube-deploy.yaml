@@ -1,3 +1,5 @@
+# python app deployment
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,6 +24,8 @@ spec:
 
 ---
 
+# python app service clusterIP
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -36,6 +40,8 @@ spec:
 
 ---
 
+# nginx service with loadbalancer
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -49,6 +55,9 @@ spec:
   type: LoadBalancer
 
 ---
+
+# nginx deployment with configMaps
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -79,6 +88,8 @@ spec:
           mountPath: /etc/nginx/conf.d
 
 ---
+
+# configMap definition for nginx
 
 apiVersion: v1
 kind: ConfigMap
